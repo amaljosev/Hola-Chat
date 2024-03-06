@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -26,7 +25,7 @@ class ScreenHome extends StatelessWidget {
               onSelected: (value) {
                 switch (value) {
                   case 'Logout':
-                    Navigator.pushNamed(context, 'settings');
+                    Navigator.pushNamed(context, 'login'); 
                   case 'Settings':
                     Navigator.pushNamed(context, 'settings');
                 }
@@ -37,4 +36,3 @@ class ScreenHome extends StatelessWidget {
         body: const Center(child: Text('body')));
   }
 }
-initial()=>log('aldkjdjd'); 
