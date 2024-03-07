@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hola/controller/settings/riverpod_states.dart';
+import 'package:hola/controller/settings/riverpod.dart';
 import 'package:hola/view/screens/home_screen.dart';
 import 'package:hola/view/screens/login/login.dart';
 import 'package:hola/view/screens/settings/settings_screen.dart';
@@ -19,11 +19,13 @@ class MyApp extends ConsumerWidget {
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider.notifier);
     return MaterialApp(
       title: 'Hola Chat',
       debugShowCheckedModeBanner: false,
-      theme: ref.watch(switchController).isSwitch ? darkMode : lightMode,
-      darkTheme: ref.watch(switchController).isSwitch ? lightMode : darkMode,
+      theme: lightMode,
+      darkTheme: darkMode,
+      themeMode: themeMode.state, 
       routes: {
         '/': (context) => const ScreenHome(),
         'login': (context) => const ScreenLogin(),

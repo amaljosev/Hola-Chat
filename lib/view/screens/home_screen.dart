@@ -1,14 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
-      WidgetsFlutterBinding.ensureInitialized();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Hola'),
@@ -25,7 +21,7 @@ class ScreenHome extends StatelessWidget {
               onSelected: (value) {
                 switch (value) {
                   case 'Logout':
-                    Navigator.pushNamed(context, 'login'); 
+                    Navigator.pushNamed(context, 'login');
                   case 'Settings':
                     Navigator.pushNamed(context, 'settings');
                 }
