@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hola/controller/splash/riverpod.dart';
+import 'package:hola/controller/boarding/riverpod.dart';
 import 'package:lottie/lottie.dart';
 
 class ScreenSplash extends ConsumerStatefulWidget {

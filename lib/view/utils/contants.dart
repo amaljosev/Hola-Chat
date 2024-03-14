@@ -42,10 +42,13 @@ var popupButton = PopupMenuButton<String>(
     // }
   },
 );
-myButton(
-    {required Function function, required String title, required Color color}) {
+Widget myButton({
+  required String title,
+  required Color color,
+  required VoidCallback onPressed,
+}) {
   return ElevatedButton(
-    onPressed: () => function,
+    onPressed: onPressed,
     style: const ButtonStyle(
         shape: MaterialStatePropertyAll(RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)))),
@@ -55,6 +58,35 @@ myButton(
       style: TextStyle(
         color: color,
       ),
+    ),
+  );
+}
+
+myTextField(
+    {required BuildContext context,
+    required String hint,
+    required TextEditingController controller}) {
+  return Padding(
+    padding: const EdgeInsets.all(10.0),
+    child: TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: hint,
+        filled: true,
+        fillColor: Theme.of(context).secondaryHeaderColor,
+        border: const UnderlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.all(Radius.circular(5))),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please enter your $hint';
+        } else if (hint == 'password' && value.length < 8) {
+          return 'Minimum 8 letters needed';
+        } else {
+          return null; 
+        }
+      },
     ),
   );
 }

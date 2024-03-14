@@ -43,7 +43,7 @@ class MyApp extends ConsumerWidget {
         'login': (context) => const ScreenLogin(),
         'settings': (context) => const ScreenSettings()
       },
-      initialRoute: 'login',
+      initialRoute: 'splash',
     );
   }
 }
