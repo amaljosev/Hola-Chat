@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "217346028104",
+    "project_id": "holachat-3d497",
+    "storage_bucket": "holachat-3d497.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217346028104:android:ed115c14676c971a4c9e7d",
+        "android_client_info": {
+          "package_name": "com.flutterverse.hola"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgRyslTVgYIH168ZJZF0zYqkneMb72u2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

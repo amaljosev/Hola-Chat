@@ -72,6 +72,7 @@ myTextField(
       controller: controller,
       decoration: InputDecoration(
         hintText: hint,
+        hintStyle: const TextStyle(fontSize: 14),
         filled: true,
         fillColor: Theme.of(context).secondaryHeaderColor,
         border: const UnderlineInputBorder(
@@ -84,7 +85,7 @@ myTextField(
         } else if (hint == 'password' && value.length < 8) {
           return 'Minimum 8 letters needed';
         } else {
-          return null; 
+          return null;
         }
       },
     ),

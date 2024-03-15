@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,11 +37,23 @@ class ScreenLogin extends ConsumerWidget {
                     children: [
                       myTextField(
                           context: context,
-                          hint: 'username',
+                          hint: 'Username',
                           controller: ref.watch(userNameController)),
+                      ref.watch(isSignupProvider)
+                          ? myTextField(
+                              context: context,
+                              hint: 'Email',
+                              controller: ref.watch(emailController))
+                          : const Row(),
+                      ref.watch(isSignupProvider)
+                          ? myTextField(
+                              context: context,
+                              hint: 'Phone Number',
+                              controller: ref.watch(phoneNumberController))
+                          : const Row(),
                       myTextField(
                           context: context,
-                          hint: 'password',
+                          hint: 'Password',
                           controller: ref.watch(passwordController)),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -50,33 +64,47 @@ class ScreenLogin extends ConsumerWidget {
                               child: myButton(
                                   onPressed: () {
                                     if (formKey.currentState!.validate()) {
-                                      Navigator.pushReplacementNamed(
-                                          context, 'home');
+                                      ref.watch(isSignupProvider)
+                                          ? ref.watch(isSignupLoadingProvider)
+                                              ? log('loading')
+                                              : ref.watch(signUp).then(
+                                                  (value) => ref.watch(
+                                                          isSignupSuccessProvider)
+                                                      ? Navigator
+                                                          .pushReplacementNamed(
+                                                              context, 'home')
+                                                      : log('error'))
+                                          : log('login');
                                     }
                                   },
-                                  title: 'Login',
+                                  title: ref.watch(isSignupProvider)
+                                      ?ref.watch(isSignupLoadingProvider)?'Loading...': 'Sign Up' 
+                                      : 'Login',
                                   color: Theme.of(context).highlightColor),
                             )
                           ],
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Forgot your login details?",
-                            style: TextStyle(
-                                color: Theme.of(context).secondaryHeaderColor),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "Get help",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+                      ref.watch(isSignupProvider)
+                          ? const Row()
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Forgot your login details?",
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Text(
+                                  "Get help",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 28.0, vertical: 8),
@@ -128,7 +156,9 @@ class ScreenLogin extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Don't have an account?",
+                              ref.watch(isSignupProvider)
+                                  ? "Already have an account?" 
+                                  : "Don't have an account?",
                               style: TextStyle(
                                   color:
                                       Theme.of(context).secondaryHeaderColor),
@@ -136,9 +166,21 @@ class ScreenLogin extends ConsumerWidget {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text(
-                              "Sign up",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            GestureDetector(
+                              onTap: () {
+                                final bool val =
+                                    ref.watch(isSignupProvider.notifier).state;
+
+                                ref.read(isSignupProvider.notifier).state =
+                                    !val;
+                              },
+                              child: Text(
+                                ref.watch(isSignupProvider)
+                                    ? 'Login'
+                                    : "Sign up",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),
